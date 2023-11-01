@@ -1,5 +1,7 @@
 from random import randint
 
+# Constantes
+
 MENU = ["Total de la facturación del mes y cantidad de socios",
         "Total de facturación por tipo de socio y la cantidad de actividades"
         "ordenado por facturación",
@@ -9,57 +11,102 @@ MENU = ["Total de la facturación del mes y cantidad de socios",
         "Salir",
         ]
 TIPO_SOCIO = ["Junior", "Standar", "Platino", "Oro", "Vitalicio"]
-
-# TODO: Juntar en un solo array.
-# TODO: Renombrar a COSTOS
-CUOTA_SOCIO = [750, 3000, 2300, 1900, 0]
-VALORES_ACTIVIDADES = [
-    [1500, 1000],
-    [2500, 1500],
-    [1500, 1300],
-    [1500, 1300],
-    [1000, 750],
+COSTOS = [
+    [750, 1500, 1000],
+    [3000, 2500, 1500],
+    [2300, 1500, 1300],
+    [1900, 1500, 1300],
+    [0, 1000, 750]
 ]
 
-# TODO: Crear variable contador
+# Metodos generales
+
+
 def mostrar_menu(options: []) -> None:
-    for i, option in enumerate(options):
-        print(i + 1, option)
+    contador = 1
 
-# TODO: Agregar generador de id, contador
-# TODO: Agregar facturacion
+    for opcion in options:
+        print(contador, opcion)
+        contador += 1
 
-def generar_socios(min: int, max: int) -> []:
+
+def generar_factura(tipo_socio, cant_activades):
+    cuota_social = COSTOS[tipo_socio][0]
+    valor_por_actividad = None
+
+    if cant_activades >= 3:
+        valor_por_actividad = 1
+    else:
+        valor_por_actividad = 2
+
+    return cuota_social + (COSTOS[tipo_socio][valor_por_actividad] * cant_activades)
+
+
+def generar_socios(min, max):
     socios = []
     cantidad_generar = randint(min, max)
+    id_socio = 0
 
-    for i in range(cantidad_generar):
+    for _ in range(cantidad_generar):
         socio = []
-        socio.append(randint(0, 4))
-        socio.append(randint(0, 6))
+        tipo_socio = randint(0, 4)
+        cant_actividades = randint(0, 6)
+        facturacion = generar_factura(tipo_socio, cant_actividades)
+
+        socio.append(id_socio)
+        socio.append(tipo_socio)
+        socio.append(cant_actividades)
+        socio.append(facturacion)
 
         socios.append(socio)
 
+        id_socio += 1
+
     return socios
-
-# TODO: Agregar la multiplicacion por actividad
-def calcular_valor_actividades(tipo_socio: int, cant_activades: int) -> int:
-    valor_actividad = 0 if cant_activades >= 3 else 1
-
-    return CUOTA_SOCIO[tipo_socio] + VALORES_ACTIVIDADES[tipo_socio][valor_actividad]
 
 # Consigna 1
 
-# TODO: Arreglar return, deberia ser [total_ingresos, cantidad de socios]
-# TODO: Cambiar para usar la funcion generar_factura()
 
-def total_facturacion_mes(socios: []) -> [int, int]:
-    total_ingresos = 0
+def total_facturacion_mes(socios: []) -> None:
+    # return [total_facturacion, cantidad_socios] -> [int, int]
 
-    for socio in socios:
-        total_ingresos += calcular_valor_actividades(socio[0], socio[1])
+    return None
 
-    return [total_ingresos, len(socios)]
+# Consigna 2
+# Pendiente. dependiendo de que diga la consigna
+
+# Consigna 3
+
+
+def listado_detallado_socios(socios: []) -> None:
+
+    return None
+
+# Consigna 4
+
+
+def detalle_socio_por_tipo(socios: []) -> None:
+
+    return None
+
+
+def manejar_opciones(opcion, socios) -> None:
+    print("\n")
+
+    if opcion == 1:
+        total_facturacion_mes(socios)
+    elif opcion == 2:
+        print("Opción 2")
+    elif opcion == 3:
+        listado_detallado_socios(socios)
+    elif opcion == 4:
+        detalle_socio_por_tipo(socios)
+    elif opcion == 5:
+        print("Gracias por usar el programa")
+    else:
+        print("Opción incorrecta")
+
+# Funcion principal
 
 
 def main() -> None:
@@ -71,12 +118,7 @@ def main() -> None:
     while option != 5:
         option = int(input("Ingrese una opción: "))
 
-        if option == 1:
-            print(
-                "Total de la facturación del mes:",
-                total_facturacion_mes(socios)[0]
-            )
-            print("Cantidad de socios:", total_facturacion_mes(socios)[1])
+        manejar_opciones(option, socios)
 
 
 main()
