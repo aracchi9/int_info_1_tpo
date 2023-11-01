@@ -10,6 +10,8 @@ MENU = ["Total de la facturación del mes y cantidad de socios",
         ]
 TIPO_SOCIO = ["Junior", "Standar", "Platino", "Oro", "Vitalicio"]
 
+# TODO: Juntar en un solo array.
+# TODO: Renombrar a COSTOS
 CUOTA_SOCIO = [750, 3000, 2300, 1900, 0]
 VALORES_ACTIVIDADES = [
     [1500, 1000],
@@ -19,11 +21,13 @@ VALORES_ACTIVIDADES = [
     [1000, 750],
 ]
 
-
+# TODO: Crear variable contador
 def mostrar_menu(options: []) -> None:
     for i, option in enumerate(options):
         print(i + 1, option)
 
+# TODO: Agregar generador de id, contador
+# TODO: Agregar facturacion
 
 def generar_socios(min: int, max: int) -> []:
     socios = []
@@ -38,14 +42,18 @@ def generar_socios(min: int, max: int) -> []:
 
     return socios
 
-
+# TODO: Agregar la multiplicacion por actividad
 def calcular_valor_actividades(tipo_socio: int, cant_activades: int) -> int:
     valor_actividad = 0 if cant_activades >= 3 else 1
 
     return CUOTA_SOCIO[tipo_socio] + VALORES_ACTIVIDADES[tipo_socio][valor_actividad]
 
+# Consigna 1
 
-def total_facturacion_mes(socios: []) -> int:
+# TODO: Arreglar return, deberia ser [total_ingresos, cantidad de socios]
+# TODO: Cambiar para usar la funcion generar_factura()
+
+def total_facturacion_mes(socios: []) -> [int, int]:
     total_ingresos = 0
 
     for socio in socios:
