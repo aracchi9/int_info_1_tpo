@@ -64,6 +64,21 @@ def generar_socios(min, max):
 
     return socios
 
+#Crea un vector auxiliar con los ids de la matriz ordenados por facturacion en orden descendente
+def vec_ord(matriz,id_socio,cve_ord):
+    vec = []
+    for i in range (0, len(matriz)):
+        vec.append(matriz[i][id_socio])
+    for i in range (1, len(matriz)):
+        aux = vec[i]
+        j = i
+        while j > 0 and matriz[vec[j-1]][cve_ord] < matriz[aux][cve_ord]:
+            vec[j] = vec[j-1]
+            j = j - 1
+        vec[j] = aux
+    return vec
+    
+
 # Consigna 1
 
 
